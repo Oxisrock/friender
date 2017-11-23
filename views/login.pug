@@ -1,0 +1,17 @@
+extends ./layout.pug
+block contenido
+  div(class="col-md-4 remove-float center-block big-top-space")
+    form(method="post" action="/login")
+      div(class="form-group")
+        label(for='username') Username
+        input( class="form-control" type="text" name="username" placeholder="Nombre de usuario")
+        br
+      div(class="form-group")
+        label(for='password') Contraseña
+        input( class="form-control" type="password" name="password" placeholder="Contraseña")
+      br
+      div(class="row top-space")
+        div(class="col-xs-12 col-sm-6")
+          input(type="submit" value="iniciar sesion",class="btn btn-info")
+        div(class="col-xs-12 col-sm-6 text-right")
+          a(href="/signup") No tengo una cuenta

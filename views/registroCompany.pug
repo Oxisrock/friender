@@ -1,0 +1,25 @@
+doctype html
+html(lang="es")
+	head
+		title="Registrar Compañia"
+	body
+		form(id="registro" method="post")
+			input(type="text" name="name" placeholder="Nombres")
+			br
+			input(type="text" name="username" placeholder="Nick Name")
+			br
+			input(type="password" name="password" placeholder="Contraseña")
+			br
+			input(type="text" name="typeOfCompany" placeholder="Tipo de Compañia")
+			br
+			input(type="text" name="province" placeholder="Provincia")
+			br
+			input(type="text" name="town" placeholder="Municipio")
+			br
+			input(type="email" name="email" placeholder="Correo electronico")
+			br
+			input(type="number" name="tel" placeholder="telefono")
+			br
+			input(type="submit" value="registrar")
+script
+	include registroCompany.js

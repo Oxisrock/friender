@@ -1,0 +1,61 @@
+extends ./layout.pug
+block contenido
+	div(class="col-md-4 remove-float center-block top-space")
+		form(method="post" action="/signup")
+			div(class="form-group")
+				label(for="name") Nombres
+				input(class="form-control" type="text" name="name" placeholder="Nombres")
+			br
+			div(class="form-group")
+				label(for="username") Apellidos
+				input(class="form-control" type="text" name="last_name" placeholder="Apellidos")
+			br
+			div(class="form-group")
+				label(for="username") Cedula
+				input(class="form-control" type="number" name="idcc" placeholder="Cedula identidad")
+			br
+			div(class="form-group")
+				label(for="username") Lugar de nacimiento
+				input(class="form-control" type="text" name="place_birth" placeholder="Lugar de nacimiento")
+			br
+			div(class="form-group")
+				label(for="username") correo electronico
+				input(class="form-control" type="email" name="email" placeholder="Correo electronico")
+			br
+			div(class="form-group")
+				label(for="username") telefono movil
+				input(class="form-control" type="number" name="tel" placeholder="telefono")
+			br
+			div(class="form-group")
+				label(for="username") Username
+				input(class="form-control" type="text" name="username" placeholder="Nombre de usuario")
+			br
+			div(class="form-group")
+				label(for="username") Nickname
+				input(class="form-control" type="text" name="nickname" placeholder="Nickname")
+			br
+			div(class="form-group")
+				label(for="username") password
+				input(class="form-control" type="password" name="password" placeholder="Contraseña")
+			br
+			div(class="form-group")
+				label(for="username") Fecha de nacimiento
+				input(class="form-control" type="date" name="birthdate" placeholder="Fecha de nacimiento")
+			br
+			div(class="form-group")
+				label(for="username") Sexo male o female
+				input(class="form-control" type="text" name="sex" placeholder="Sexo")
+			br
+			div(class="form-group")
+				label(for="username") Lugar de residencia
+				input(class="form-control" type="text" name="place_residence" placeholder="Lugar de residencia")
+			br
+			div(class="form-group")
+				label(for="username") Telefono fijo
+				input(class="form-control" type="number" name="tel_home" placeholder="Telefono fijo")
+			br
+			div(class="row top-space")
+				div(class="col-xs-12 col-sm-6")
+					input(type="submit" value="iniciar sesion",class="btn btn-info")
+				div(class="col-xs-12 col-sm-6 text-right")
+					a(href="/login") Ya tengo una cuenta
