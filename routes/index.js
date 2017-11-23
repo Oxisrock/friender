@@ -4,10 +4,9 @@ const express = require ('express')
 const api = express.Router()
 const companyCtrl = require('../controllers/company')
 const userCtrl = require('../controllers/user')
-
-api.get('/', function(req, res) {
-  res.render('index')
-})
+const session_middleware = require('../middlewares/session')
+const session = require('express-session')
+api.get('/',userCtrl.home)
 
 //rutas modelo company
 api.post('/sign', companyCtrl.signUp)

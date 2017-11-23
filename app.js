@@ -7,14 +7,14 @@ const api = require('./routes/index')
 const cookieSession = require('cookie-session')
 const session_middleware = require('./middlewares/session')
 const session = require('express-session')
-
+const config = require('./config')
 app.use(cookieSession({
   name: "session",
   keys: ["llave-1","llave-2"]
 }));
 
 app.use(session({
-  secret: '123123',
+  secret: config.SECRET_TOKEN,
   resave: false,
   saveUninitialized: false
 }))
@@ -26,6 +26,8 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended: false})) // llamada del middleware bodyParser que busca las rutas y las interpreta
 
 app.use(bodyParser.json()) // para poder utilizar y leer objetos tipo json
+
+app.use('/', session_middleware)
 
 app.use('/', api)
 

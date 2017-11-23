@@ -1,5 +1,11 @@
 'use strict'
 const User = require('../models/user') // se importa modelo User, UserShema
+
+function home (req, res) {
+    console.log('El home');
+    res.render('index')
+}
+
 function signUp (req, res) { // función para registrar usuarios
   console.log('POST /Users')
   console.log(req.body)
@@ -50,7 +56,10 @@ function signIn (req, res) { // funcion para validar el logeado de los usuarios
   User.findOne({username: req.body.username, password: req.body.password}, (err, user) => { // se manda a buscar el correo en la base de datos
     if (err) return res.status(500).send({ message: err }) // si manda error 500 es que a pasado algo en la peticion
     if (!user) return res.status(404).send({ message: `No existe el usuario` })// si manda error 404 es que no existe este usuario
-    
+    req.session.user_id = user._id
+    req.session.username = user.username
+    req.session.nickname = user.nickname
+    console.log(req.session.user);
     res.status(200).send({user: user}) // manda estado 200 y envia el mensaje que se a logeado correctamente
 
   })
@@ -88,5 +97,6 @@ module.exports =
   getUsers,
   getUser,
   deleteUser,
-  updateUser
+  updateUser,
+  home
 }
