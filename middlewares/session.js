@@ -4,11 +4,11 @@ module.exports = function (req, res, next) {
     res.redirect('/login')
   }
   else {
-     User.findById(req.session.user_id, function (err, user){
+     User.find(req.session.user_id, function (err, user){
      if (err) {
        console.log(err)
      }
-     else {[]
+     else {
        res.locals = {user }
        next();
      }
