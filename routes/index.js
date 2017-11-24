@@ -14,10 +14,10 @@ api.get('/companys', companyCtrl.getCompanys)
 api.get('/company/:companyId', companyCtrl.getCompany)
 api.post('/logini', companyCtrl.signIn)
 api.get('/logini', (req, res) => {
-  res.render('loginCompany')
+  res.render('logincompany')
 })
 api.get('/sign', (req, res) => {
-  res.render('registroCompany')
+  res.render('registrocompany')
 })
 api.put('/company/:companyId', companyCtrl.updateCompany)
 api.delete('/company/:companyId', companyCtrl.deleteCompany)
