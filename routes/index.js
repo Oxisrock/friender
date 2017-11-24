@@ -4,6 +4,7 @@ const express = require ('express')
 const api = express.Router()
 const companyCtrl = require('../controllers/company')
 const userCtrl = require('../controllers/user')
+const ofertCtrl = require('../controllers/ofert')
 const session_middleware = require('../middlewares/session')
 const session = require('express-session')
 api.get('/',userCtrl.home)
@@ -36,7 +37,21 @@ api.get('/signup', (req, res) => {
 api.put('/users/:userId', userCtrl.updateUser)
 api.delete('/user/:userId', userCtrl.deleteUser)
 
+//ofertas
 
+api.route('/ofert/new')
+  .get((req, res) => {
+    res.render('oferts/new_ofert')
+  })
+
+api.route('/oferts')
+  .get(ofertCtrl.get_oferts)
+  .post(ofertCtrl.create_ofert)
+
+api.route('/ofert/:ofertsId')
+  .get(ofertCtrl.get_ofert)
+  .put()
+  .delete()
 // vistas
 
 

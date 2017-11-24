@@ -1,25 +1,73 @@
-doctype html
-html(lang="es")
-	head
-		title="Registrar Compañia"
-	body
-		form(id="registro" method="post")
-			input(type="text" name="name" placeholder="Nombres")
+extends ./layout.pug
+block contenido
+	div(class="col-md-4 remove-float center-block top-space")
+		form(method="post" action="/sign")
+			div(class="form-group")
+				label(for="name") Nombres
+				input(class="form-control" type="text" name="name")
 			br
-			input(type="text" name="username" placeholder="Nick Name")
+			div(class="form-group")
+				label(for="username") Nit
+				input(class="form-control" type="text" name="nit")
 			br
-			input(type="password" name="password" placeholder="Contraseña")
+			div(class="form-group")
+				label(for="username") Lugar de fundacion
+				input(class="form-control" type="text" name="place_fundation")
 			br
-			input(type="text" name="typeOfCompany" placeholder="Tipo de Compañia")
+			div(class="form-group")
+				label(for="username") Correo Electronico
+				input(class="form-control" type="email" name="email")
 			br
-			input(type="text" name="province" placeholder="Provincia")
+			div(class="form-group")
+				label(for="username") Telefono Movil
+				input(class="form-control" type="number" name="tel")
 			br
-			input(type="text" name="town" placeholder="Municipio")
+			div(class="form-group")
+				label(for="username") Username
+				input(class="form-control" type="text" name="username")
 			br
-			input(type="email" name="email" placeholder="Correo electronico")
+			div(class="form-group")
+				label(for="username") Nickname
+				input(class="form-control" type="text" name="nickname")
 			br
-			input(type="number" name="tel" placeholder="telefono")
+			div(class="form-group")
+				label(for="username") Password
+				input(class="form-control" type="password" name="password")
 			br
-			input(type="submit" value="registrar")
-script
-	include registroCompany.js
+			div(class="form-group")
+				label(for="username") Fecha de fundacion
+				input(class="form-control" type="date" name="fundation")
+			br
+			div(class="form-group")
+				label(for="username") Tipo de compañia inmobiliaria o otros
+				select( class='form-control' name='typeOfCompany')
+					option( value='inmobiliaria') inmobiliaria
+					option( value='otros') otros
+			br
+			div(class="form-group")
+				label(for="username") Direccion fiscal
+				input(class="form-control" type="text" name="residence")
+			br
+			div(class="form-group")
+				label(for="username") Clase de compañia
+				select( class='form-control' name='class_company')
+					option( value='sede principal') sede principal
+					option( value='sucursal') sucursal
+			br
+			div(class="form-group")
+				label(for="username") Telefono fijo
+				input(class="form-control" type="number" name="tel_home")
+			br
+			div(class="form-group")
+				label(for="username") Imagen de perfil
+				input(class="form-control" type="file" name="profile_img")
+			br
+			div(class="form-group")
+				label(for="username") Imagen de portada
+				input(class="form-control" type="file" name="banner")
+			br
+			div(class="row top-space")
+				div(class="col-xs-12 col-sm-6")
+					input(type="submit" value="registrate",class="btn btn-info")
+				div(class="col-xs-12 col-sm-6 text-right")
+					a(href="/logini") Ya tengo una cuenta

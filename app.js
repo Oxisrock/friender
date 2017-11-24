@@ -6,17 +6,11 @@ const pug = require('pug')
 const api = require('./routes/index')
 const cookieSession = require('cookie-session')
 const session_middleware = require('./middlewares/session')
-const session = require('express-session')
 const config = require('./config')
+
 app.use(cookieSession({
   name: "session",
   keys: ["llave-1","llave-2"]
-}));
-
-app.use(session({
-  secret: config.SECRET_TOKEN,
-  resave: false,
-  saveUninitialized: false
 }))
 
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css')); // redirect CSS bootstrap
