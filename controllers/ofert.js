@@ -19,15 +19,43 @@ function create_ofert (req, res) { // se crea la funcion signUp que recibe un re
 
 function get_ofert (req, res) {
   Ofert.findById(req.params.ofertsId, (err, ofert) => {
+    if (err) return res.status(500).send({ message: `Error al buscar oferta:: ${err}` })
+    if (!ofert) return res.status(404).send({message: 'No existe ninguna oferta'})
     res.render('oferts/show_ofert', {ofert: ofert})
   })
 }
 
 function get_oferts (req, res) {
-  Ofert.find({}, (err, ofert) => {
-    res.status(200).send({ofert: ofert})
+  Ofert.find({}, (err, oferts) => {
+    if (err) return res.status(500).send({ message: `Error al buscar oferta: ${err}` })
+    if (!oferts) return res.status(404).send({message: 'No existe ninguna oferta'})
+    res.status(200).render('oferts',{oferts: oferts})
   })
 }
+
+function view_update_ofert (req, res) {
+  Ofert.findById(req.params.ofertsId, (err, ofert) => {
+    if (err) return res.status(500).send({ message: `Error al buscar oferta: ${err}` })
+    if (!ofert) return res.status(404).send({message: 'No existe ninguna oferta'})
+    res.render('oferts/edit_ofert', {ofert: ofert})
+  })
+}
+
+function update_ofert (req, res) {
+  let ofertsId = req.params.ofertsId
+  let update = req.body
+  Ofert.findByIdAndUpdate(req.params.ofertsId, update, (err, ofert) => {
+    if (err) return res.status(500).render('oferts/edit_ofert', {ofert: ofert})
+    else {
+      res.status(200).render('oferts/show_ofert', {ofert: ofert})
+    }
+    if (!ofert) return res.status(404).send({message: 'No existe ninguna oferta'})
+
+
+    res.render('oferts/show_ofert', {ofert: ofert})
+  })
+}
+
 
 
 
@@ -35,7 +63,9 @@ module.exports =
 {
   create_ofert, // palabra reservada para llamar a la funcion signUp
   get_ofert,
-  get_oferts
+  get_oferts,
+  update_ofert,
+  view_update_ofert
   /*get_ofert, // palabra reservada para llamar a la funcion getUsers
   update_ofert,
   delete_ofert

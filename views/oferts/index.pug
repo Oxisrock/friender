@@ -1,0 +1,24 @@
+extends ../layout.pug
+block contenido
+  .container
+      .row
+      .white.border.tr.large-padding
+        .col-md-11
+          table(class='table')
+
+            caption Ofertas
+            thead
+              tr
+                th Id de oferta
+                th Titulo de oferta
+                th opciones
+            for ofert in oferts
+              tr
+                td #{ofert.id}
+                td #{ofert.title}
+                td
+                  a(class="btn btn-info" href='ofert/'+ofert.id ) Ver mas
+
+                  a(class="btn btn-success" href='ofert/'+ofert.id+'/edit') Editar
+
+                  a(class="btn btn-danger" href='ofert/'+ofert.id) Eliminar

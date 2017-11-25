@@ -1,0 +1,26 @@
+extends ../layout.pug
+block contenido
+	div(class="col-md-4 remove-float center-block top-space")
+		h1 Editar oferta
+		form(method="post", action='/ofert/'+ofert.id+'?_method=PUT')
+			div(class="form-group")
+				label(for="title") Titulo de oferta
+				input(class="form-control" type="text" name="title" value=ofert.title)
+			br
+			div(class="form-group")
+				label(for="nit") Descripción
+				input(class="form-control" type="text" name="description")
+			br
+			div(class="form-group")
+				label(for="place_fundation") Salario
+				input(class="form-control" type="number" name="price")
+			br
+			div(class="form-group")
+				label(for="email") Fecha tope
+				input(class="form-control" type="date" name="date_top")
+			br
+			div(class="row top-space")
+				div(class="col-xs-12 col-sm-6")
+					input(type="submit" value="Actualizar oferta",class="btn btn-info")
+				div(class="col-xs-12 col-sm-6 text-right")
+					a(href="/" class="btn btn-danger") Cancelar

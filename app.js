@@ -7,6 +7,9 @@ const api = require('./routes/index')
 const cookieSession = require('cookie-session')
 const session_middleware = require('./middlewares/session')
 const config = require('./config')
+const methodOverride = require('method-override')
+
+app.use(methodOverride('_method'))
 
 app.use(cookieSession({
   name: "session",
