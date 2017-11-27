@@ -6,48 +6,55 @@ const companyCtrl = require('../controllers/company')
 const userCtrl = require('../controllers/user')
 const ofertCtrl = require('../controllers/ofert')
 
-api.get('/',userCtrl.home)
 
-//rutas modelo company
-
+// Home
+api.route('/')
+  .get((req, res) => {
+    res.render('')
+  })
+//Rutas modelo company
+api.route('/companys')
+  .get(companyCtrl.getCompanys)
+  .post(companyCtrl.new_company)
 api.route('/companys/new')
   .get((req, res) => {
     res.render('companys/new_company')
   })
-api.route('/companys')
-  .get(companyCtrl.getCompanys)
-  .post(companyCtrl.new_company)
-
 api.route('/companys/login')
   .get((req, res) => {
     res.render('companys/login')
   })
   .post(companyCtrl.login)
-
 api.route('/company/:companyId')
   .get(companyCtrl.getCompany)
   .put(companyCtrl.updateCompany)
   .delete(companyCtrl.deleteCompany)
 
+///////////////////////////////////////////////////////////////////////
 
+//Rutas modelo user
+api.route('/users')
+  .post(userCtrl.new_user)
+  .get(userCtrl.getUsers)
 
+api.route('/users/new')
+  .get((req, res) => {
+    res.render('users/new_user')
+  })
 
-//rutas modelo user
-api.post('/signup', userCtrl.signUp) // ruta para el registro de usuarios
-api.get('/users', userCtrl.getUsers)
-api.get('/user/:userId', userCtrl.getUser) // petion get para mostrar un producto especificado por su ID
-api.post('/login', userCtrl.signIn)
-api.get('/login', (req, res) => {
-  res.render('login')
-})
-api.get('/signup', (req, res) => {
-  res.render('registro')
-})
-api.put('/users/:userId', userCtrl.updateUser)
-api.delete('/user/:userId', userCtrl.deleteUser)
+api.route('/users/login')
+  .get((req, res) => {
+    res.render('/users/login')
+  })
+  .post(userCtrl.login)
 
-//ofertas
+api.route('/user/:userId')
+  .get(userCtrl.getUser)
+  .put(userCtrl.updateUser)
+  .delete(userCtrl.deleteUser)
 
+///////////////////////////////////////////////////////////////////////
+// Rutas modelo ofertas
 api.route('/ofert/new')
   .get((req, res) => {
     res.render('oferts/new_ofert')
