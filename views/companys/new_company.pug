@@ -1,7 +1,7 @@
-extends ./layout.pug
+extends ../layout.pug
 block contenido
 	div(class="col-md-4 remove-float center-block top-space")
-		form(method="post" action="/sign")
+		form(method="post" action="/companys")
 			div(class="form-group")
 				label(for="name") Nombres
 				input(class="form-control" type="text" name="name")
@@ -70,4 +70,4 @@ block contenido
 				div(class="col-xs-12 col-sm-6")
 					input(type="submit" value="registrate",class="btn btn-info")
 				div(class="col-xs-12 col-sm-6 text-right")
-					a(href="/logini") Ya tengo una cuenta
+					a(href="/companys/login") Ya tengo una cuenta

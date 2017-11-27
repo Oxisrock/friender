@@ -1,0 +1,26 @@
+extends ../layout.pug
+block contenido
+  .container
+      .row
+      .white.border.tr.large-padding
+        .col-md-11
+          table(class='table')
+
+            caption Companys
+            thead
+              tr
+                th Nombre
+                th NIT
+                th Email
+                th Obciones
+            for company in companys
+              tr
+                td #{company.name}
+                td #{company.nit}
+                td #{company.email}
+                td
+                  a(class="btn btn-info" href='company/'+company.id ) Ver mas
+
+                  a(class="btn btn-success" href='company/'+company.id) Editar
+
+                  a(class="btn btn-danger" href='company/'+company.id) Eliminar

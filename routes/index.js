@@ -9,18 +9,28 @@ const ofertCtrl = require('../controllers/ofert')
 api.get('/',userCtrl.home)
 
 //rutas modelo company
-api.post('/sign', companyCtrl.signUp)
-api.get('/companys', companyCtrl.getCompanys)
-api.get('/company/:companyId', companyCtrl.getCompany)
-api.post('/logini', companyCtrl.signIn)
-api.get('/logini', (req, res) => {
-  res.render('logincompany')
-})
-api.get('/sign', (req, res) => {
-  res.render('registrocompany')
-})
-api.put('/company/:companyId', companyCtrl.updateCompany)
-api.delete('/company/:companyId', companyCtrl.deleteCompany)
+
+api.route('/companys/new')
+  .get((req, res) => {
+    res.render('companys/new_company')
+  })
+api.route('/companys')
+  .get(companyCtrl.getCompanys)
+  .post(companyCtrl.new_company)
+
+api.route('/companys/login')
+  .get((req, res) => {
+    res.render('companys/login')
+  })
+  .post(companyCtrl.login)
+
+api.route('/company/:companyId')
+  .get(companyCtrl.getCompany)
+  .put(companyCtrl.updateCompany)
+  .delete(companyCtrl.deleteCompany)
+
+
+
 
 //rutas modelo user
 api.post('/signup', userCtrl.signUp) // ruta para el registro de usuarios
