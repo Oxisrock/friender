@@ -1,11 +1,6 @@
 'use strict'
 const User = require('../models/user') // se importa modelo User, UserShema
 
-/*
-function home (req, res) {
-    console.log('El home');
-    res.render('index')
-}*/
 
 function new_user (req, res) { // función para registrar usuarios
   console.log('POST /Users')

@@ -1,0 +1,22 @@
+extends ../layout.pug
+block contenido
+	div(class="col-md-4 remove-float center-block top-space")
+		h1 Editar Servicio
+		form(method="post", action='/service/'+service.id+'?_method=PUT')
+			div(class="form-group")
+				label(for="title") Titulo del servicio 
+				input(class="form-control" type="text" name="title" value=service.title)
+			br
+			div(class="form-group")
+				label(for="Descripcion") Descripción
+				input(class="form-control" type="text" name="description" value=service.description)
+			br
+			div(class="form-group")
+				label(for="Salary") Salario
+				input(class="form-control" type="number" name="price" value=service.salary)
+			br
+			div(class="row top-space")
+				div(class="col-xs-12 col-sm-6")
+					input(type="submit" value="Actualizar ",class="btn btn-info")
+				div(class="col-xs-12 col-sm-6 text-right")
+					a(href="/" class="btn btn-danger") Cancelar

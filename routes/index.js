@@ -5,6 +5,7 @@ const api = express.Router()
 const companyCtrl = require('../controllers/company')
 const userCtrl = require('../controllers/user')
 const ofertCtrl = require('../controllers/ofert')
+const serviceCtrl = require('../controllers/service')
 
 
 // Home
@@ -71,6 +72,26 @@ api.route('/ofert/:ofertsId')
   .get(ofertCtrl.get_ofert)
   .put(ofertCtrl.update_ofert)
 // vistas
+
+
+///////////////////////////////////////////////////////////////////////
+// Rutas modelo servicios
+api.route('/service/new')
+  .get((req, res) => {
+    res.render('services/new_service')
+  })
+
+api.route('/services')
+  .get(serviceCtrl.get_services)
+  .post(serviceCtrl.create_service)
+
+api.route('/services/:serviceId/edit')
+  .get(serviceCtrl.view_update_service)
+
+api.route('/service/:serviceId')
+  .get(serviceCtrl.get_service)
+  .put(serviceCtrl.update_service)
+  .delete(serviceCtrl.deleteService)
 
 
 /*
