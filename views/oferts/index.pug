@@ -11,14 +11,20 @@ block contenido
               tr
                 th Id de oferta
                 th Titulo de oferta
+                th Descripcion
+                th Precio
+                th Fecha
                 th opciones
             for ofert in oferts
               tr
-                td #{ofert.id}
-                td #{ofert.title}
+                td  #{ofert.id}
+                td  #{ofert.title}
+                td  #{ofert.description}
+                td  #{ofert.price}
+                td  #{ofert.date_top}
                 td
                   a(class="btn btn-info" href='ofert/'+ofert.id ) Ver mas
 
                   a(class="btn btn-success" href='ofert/'+ofert.id+'/edit') Editar
-
+                  form(action)
                   a(class="btn btn-danger" href='ofert/'+ofert.id) Eliminar

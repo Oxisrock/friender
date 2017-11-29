@@ -50,11 +50,17 @@ function update_ofert (req, res) {
       res.status(200).render('oferts/show_ofert', {ofert: ofert})
     }
     if (!ofert) return res.status(404).send({message: 'No existe ninguna oferta'})
-
-
-    res.render('oferts/show_ofert', {ofert: ofert})
   })
 }
+
+function delete_ofert (req, res) {
+  Ofert.findById(req.params.ofertsId, (err, ofert) => {
+    if (err) return res.status(500).send({ message: `Error al buscar oferta: ${err}` })
+    if (!ofert) return res.status(404).send({message: 'No existe ninguna oferta'})
+    res.render('oferts/edit_ofert', {ofert: ofert})
+  })
+}
+
 
 
 
@@ -65,7 +71,8 @@ module.exports =
   get_ofert,
   get_oferts,
   update_ofert,
-  view_update_ofert
+  view_update_ofert,
+  delete_ofert
   /*get_ofert, // palabra reservada para llamar a la funcion getUsers
   update_ofert,
   delete_ofert

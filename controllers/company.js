@@ -6,15 +6,15 @@ function signUp (req, res) { // se crea la funcion signUp que recibe un requerim
   console.log('POST /Company')
   console.log(req.body)
   const data = req.body //se guarda en un array los datos de la compañia  que nos da el requerimiento
-   /* name: req.body.name, 
+   /* name: req.body.name,
     nit: req.body.nit,
     place_fundation: req.body.place_fundation,
-    email: req.body.email, 
+    email: req.body.email,
     tel: req.body.tel,
     username: req.body.username,
-    nickname: req.body.nickname, 
+    nickname: req.body.nickname,
     password: req.body.password,
-    fundation: req.body.fundation, 
+    fundation: req.body.fundation,
     typeOfCompany: req.body.typeOfCompany,
     residence: req.body.residence
     class_company: req.body.class_company,
@@ -51,8 +51,12 @@ function signIn (req, res) { // funcion para validar el logeado de los usuarios
     console.log(company)
     if (err) return res.status(500).send({ message: err }) // si manda error 500 es que a pasado algo en la peticion
     if (!company) return res.status(404).send({ message: `No existe el usuario` })// si manda error 404 es que no existe este usuario
+    req.session.company_id = company._id
+    req.session.username = company.username
+    req.session.nickname = company.nickname
+    console.log(req.session.user);
     res.status(200).send({message: `Bienvenido ${req.body.username}`, company: [company.name, company.email]}) // manda estado 200 y envia el mensaje que se a logeado correctamente
-    
+
   })
 }
 
@@ -74,7 +78,7 @@ function deleteCompany(req, res) { //funcion que borra registro de usuario
 
   Company.findById(req.params.companyId, (err, company) => {
   if (err) return res.status(500).send({message: 'Error al acceder al servidor'})
- 
+
   company.remove(err => {
     if (err) return res.status(500).send({message: 'Error al acceder al servidor'})
     res.status(200).send({message: `Registro eliminado`})

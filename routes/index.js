@@ -53,6 +53,7 @@ api.route('/ofert/:ofertsId/edit')
 api.route('/ofert/:ofertsId')
   .get(ofertCtrl.get_ofert)
   .put(ofertCtrl.update_ofert)
+  .delete()
 // vistas
 
 
