@@ -1,13 +1,17 @@
-const User = require('../models/user')
-module.exports = function (req, res, next) {
-
-     User.find(req.session.user_id, function (err, user){
-     if (err) {
-       console.log(err)
-     }
-     else {
-       res.locals = {user }
-       next();
-     }
+const Company = require('../models/company')
+module.exports = function(req, res, next) {
+  if (!req.session.company_id) {
+    res.redirect('/login')
+  } else {
+    Company.findById(req.session.company_id, function(err, company) {
+      if (err) {
+        console.log(err)
+      } else {
+        res.locals = {
+          company : company
+        }
+        next();
+      }
     });
+  }
 };

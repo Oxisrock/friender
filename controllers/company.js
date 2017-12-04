@@ -5,28 +5,29 @@ const Company = require('../models/company') // se manda a llamar a el modelo co
 function signUp (req, res) { // se crea la funcion signUp que recibe un requerimiento y manda una respuesta
   console.log('POST /Company')
   console.log(req.body)
-  const data = req.body //se guarda en un array los datos de la compañia  que nos da el requerimiento
-   /* name: req.body.name,
-    nit: req.body.nit,
-    place_fundation: req.body.place_fundation,
-    email: req.body.email,
-    tel: req.body.tel,
-    username: req.body.username,
-    nickname: req.body.nickname,
-    password: req.body.password,
-    fundation: req.body.fundation,
-    typeOfCompany: req.body.typeOfCompany,
-    residence: req.body.residence
-    class_company: req.body.class_company,
-    tel_home: req.body.tel_home,
-  }
-*/
-  const company = new Company(data) // se guarda todos los datos almacenados en una constante y se manda a guardar esta constante
-  company.save((err) => { // se manda a guardar la compañia en la base de datos
-    if (err) return res.status(500).send({ message: `Error al crear Compañia: ${err}` }) // si paso algun error a mandar a guardar
-    console.log('company created')
-    return res.status(200).send({message: 'compañia creada'}) // manda el estatus 200 que fue correcto el guardado del usuario  guarda en la base de datos
-  })
+  const data = { //se guarda en un array los datos de la compañia  que nos da el requerimiento
+  name: req.body.name,
+  nit: req.body.nit,
+  place_fundation: req.body.place_fundation,
+  email: req.body.email,
+  tel: req.body.tel,
+  username: req.body.username,
+  nickname: req.body.nickname,
+  password: req.body.password,
+  fundation: req.body.fundation,
+  typeOfCompany: req.body.typeOfCompany,
+  residence: req.body.residence,
+  class_company: req.body.class_company,
+  tel_home: req.body.tel_home,
+  creator: res.locals.company_id
+}
+const company = new Company(data) // se guarda todos los datos almacenados en una constante y se manda a guardar esta constante
+company.save((err) => { // se manda a guardar la compañia en la base de datos
+  if (err) return res.status(500).send({ message: `Error al crear Compañia: ${err}` }) // si paso algun error a mandar a guardar
+  console.log('company created')
+  onsole.log(company)
+  return res.status(200).send({message: 'compañia creada'}) // manda el estatus 200 que fue correcto el guardado del usuario  guarda en la base de datos
+})
 }
 
 function getCompanys (req, res) { // funcion para mostrar todos los datos del modelo company
@@ -54,8 +55,8 @@ function signIn (req, res) { // funcion para validar el logeado de los usuarios
     req.session.company_id = company._id
     req.session.username = company.username
     req.session.nickname = company.nickname
-    console.log(req.session.user);
-    res.status(200).send({message: `Bienvenido ${req.body.username}`, company: [company.name, company.email]}) // manda estado 200 y envia el mensaje que se a logeado correctamente
+    console.log(req.session.company_id);
+    res.status(200).send({message: `Bienvenido ${req.body.username}`, company: company}) // manda estado 200 y envia el mensaje que se a logeado correctamente
 
   })
 }
@@ -65,11 +66,11 @@ function updateCompany(req, res) { // funcion que actualiza la informacion del u
   let companyId = req.params.companyId
   let update = req.body
   Company.findByIdAndUpdate(companyId, update, (err, companyUpdate) => {
-  if (err) return res.status(500).send({message: "Error al acceder al servidor"})
+    if (err) return res.status(500).send({message: "Error al acceder al servidor"})
 
-  res.status(200).send({message: "Se a actualizado la información de la empresa"})
+    res.status(200).send({message: "Se a actualizado la información de la empresa"})
   }
-  )
+)
 }
 
 function deleteCompany(req, res) { //funcion que borra registro de usuario
@@ -77,12 +78,12 @@ function deleteCompany(req, res) { //funcion que borra registro de usuario
   console.log('entra en esta funcion')
 
   Company.findById(req.params.companyId, (err, company) => {
-  if (err) return res.status(500).send({message: 'Error al acceder al servidor'})
-
-  company.remove(err => {
     if (err) return res.status(500).send({message: 'Error al acceder al servidor'})
-    res.status(200).send({message: `Registro eliminado`})
-  })
+
+    company.remove(err => {
+      if (err) return res.status(500).send({message: 'Error al acceder al servidor'})
+      res.status(200).send({message: `Registro eliminado`})
+    })
   })
 }
 

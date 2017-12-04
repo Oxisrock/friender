@@ -14,6 +14,7 @@ block contenido
                 th Descripcion
                 th Precio
                 th Fecha
+                th Creado por
                 th opciones
             for ofert in oferts
               tr
@@ -22,9 +23,12 @@ block contenido
                 td  #{ofert.description}
                 td  #{ofert.price}
                 td  #{ofert.date_top}
-                td
-                  a(class="btn btn-info" href='ofert/'+ofert.id ) Ver mas
+                td  #{ofert.creator}
+                  .botones
+                    a(class="btn btn-info" href='ofert/'+ofert.id ) Ver mas
 
-                  a(class="btn btn-success" href='ofert/'+ofert.id+'/edit') Editar
-                  form(action)
-                  a(class="btn btn-danger" href='ofert/'+ofert.id) Eliminar
+                    a(class="btn btn-success" href='ofert/'+ofert.id+'/edit') Editar
+
+                    form(action='ofert/'+ofert.id+'?_method=DELETE' method='POST')
+                      input(type="submit" value="Eliminar" class="btn btn-danger")
+                    br

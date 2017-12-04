@@ -5,7 +5,7 @@ const api = express.Router()
 const companyCtrl = require('../controllers/company')
 const userCtrl = require('../controllers/user')
 const ofertCtrl = require('../controllers/ofert')
-
+const finder_oferts = require('../middlewares/find_oferts')
 api.get('/',userCtrl.home)
 
 //rutas modelo company
@@ -50,10 +50,12 @@ api.route('/oferts')
 api.route('/ofert/:ofertsId/edit')
   .get(ofertCtrl.view_update_ofert)
 
+api.all('/ofert/:ofertsId*', finder_oferts)
+
 api.route('/ofert/:ofertsId')
   .get(ofertCtrl.get_ofert)
   .put(ofertCtrl.update_ofert)
-  .delete()
+  .delete(ofertCtrl.delete_ofert)
 // vistas
 
 

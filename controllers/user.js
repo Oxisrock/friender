@@ -2,8 +2,8 @@
 const User = require('../models/user') // se importa modelo User, UserShema
 
 function home (req, res) {
-    console.log('El home');
-    res.render('index')
+  console.log('El home');
+  res.render('index')
 }
 
 function signUp (req, res) { // función para registrar usuarios
@@ -70,23 +70,23 @@ function updateUser(req, res) { // funcion que actualiza la informacion del usua
   let userId = req.params.userId
   let update = req.body
   User.findByIdAndUpdate(userId, update, (err, userUpdate) => {
-  if (err) return res.status(500).send({message: "Error al acceder al servidor"})
+    if (err) return res.status(500).send({message: "Error al acceder al servidor"})
 
-  res.status(200).send({message: "Se a actualizado la información del usuario"})
+    res.status(200).send({message: "Se a actualizado la información del usuario"})
   }
-  )
+)
 }
 
 function deleteUser(req, res) { //funcion que borra registro de usuario
   let userId = req.params.userId
 
   User.findById(req.params.userId, (err, user) => {
-  if (err) return res.status(500).send({message: 'Error al acceder al servidor'})
-
-  user.remove(err => {
     if (err) return res.status(500).send({message: 'Error al acceder al servidor'})
-    res.status(200).send({message: `el usuario a sido borrado`})
-  })
+
+    user.remove(err => {
+      if (err) return res.status(500).send({message: 'Error al acceder al servidor'})
+      res.status(200).send({message: `el usuario a sido borrado`})
+    })
   })
 }
 
