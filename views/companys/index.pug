@@ -1,0 +1,48 @@
+extends ../layout.pug
+block contenido
+  .container
+      .row
+          table(class='table')
+
+            caption Compañias
+            thead
+              tr
+                th Id de compañia
+                th Nombre
+                th Nit
+                th Lugar de fundacion
+                th Correo
+                th Email
+                th Tel
+                th username
+                th nickname
+                th fundacion
+                th Tipo de compañia
+                th residencia
+                th clase de compañia
+                th Telefono fijo
+            for company in companys
+              tr
+                td  #{company.id}
+                td  #{company.name}
+                td  #{company.nit}
+                td  #{company.place_fundation}
+                td  #{company.email}
+                td  #{company.tel}
+                td  #{company.username}
+                td  #{company.nickname}
+                td  #{company.password}
+                td  #{company.fundation}
+                td  #{company.typeOfCompany}
+                td  #{company.residence}
+                td  #{company.class_company}
+                td  #{company.tel_home}
+                td
+                  .botones
+                    a(class="btn btn-info" href='company/'+company.id ) Ver mas
+
+                    a(class="btn btn-success" href='company/'+company.id+'/edit') Editar
+
+                    form(action='company/'+company.id+'?_method=DELETE' method='POST')
+                      input(type="submit" value="Eliminar" class="btn btn-danger")
+                    br

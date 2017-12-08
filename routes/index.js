@@ -12,6 +12,7 @@ api.get('/',userCtrl.home)
 api.post('/sign', companyCtrl.signUp)
 api.get('/companys', companyCtrl.getCompanys)
 api.get('/company/:companyId', companyCtrl.getCompany)
+api.get('/company/:companyId/edit', companyCtrl.view_update_company)
 api.post('/logini', companyCtrl.signIn)
 api.get('/logini', (req, res) => {
   res.render('logincompany')

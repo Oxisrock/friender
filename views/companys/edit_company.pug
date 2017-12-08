@@ -1,0 +1,73 @@
+extends ../layout.pug
+block contenido
+	div(class="col-md-4 remove-float center-block top-space")
+		form(method="post" action="/company/'+company.id+'?_method=PUT")
+			div(class="form-group")
+				label(for="name") Nombre
+				input(class="form-control" type="text" name="name" value=company.name)
+			br
+			div(class="form-group")
+				label(for="username") Nit
+				input(class="form-control" type="text" name="nit" value=company.nit)
+			br
+			div(class="form-group")
+				label(for="username") Lugar de fundacion
+				input(class="form-control" type="text" name="place_fundation" value=company.place_fundation)
+			br
+			div(class="form-group")
+				label(for="username") Correo Electronico
+				input(class="form-control" type="email" name="email" value=company.email)
+			br
+			div(class="form-group")
+				label(for="username") Telefono Movil
+				input(class="form-control" type="number" name="tel" value=company.tel)
+			br
+			div(class="form-group")
+				label(for="username") Username
+				input(class="form-control" type="text" name="username" value=company.username)
+			br
+			div(class="form-group")
+				label(for="username") Nickname
+				input(class="form-control" type="text" name="nickname" value=company.nickname)
+			br
+			div(class="form-group")
+				label(for="username") Password
+				input(class="form-control" type="password" name="password" value=company.password)
+			br
+			div(class="form-group")
+				label(for="username") Fecha de fundacion
+				input(class="form-control" type="date" name="fundation" value=company.fundation)
+			br
+			div(class="form-group")
+				label(for="username") Tipo de compañia inmobiliaria o otros
+				select( class='form-control' name='typeOfCompany' value=company.typeOfCompany)
+					option( value='inmobiliaria') inmobiliaria
+					option( value='otros') otros
+			br
+			div(class="form-group")
+				label(for="username") Direccion fiscal
+				input(class="form-control" type="text" name="residence")
+			br
+			div(class="form-group")
+				label(for="username") Clase de compañia
+				select( class='form-control' name='class_company')
+					option( value='sede principal') sede principal
+					option( value='sucursal') sucursal
+			br
+			div(class="form-group")
+				label(for="username") Telefono fijo
+				input(class="form-control" type="number" name="tel_home")
+			br
+			div(class="form-group")
+				label(for="username") Imagen de perfil
+				input(class="form-control" type="file" name="profile_img")
+			br
+			div(class="form-group")
+				label(for="username") Imagen de portada
+				input(class="form-control" type="file" name="banner")
+			br
+			div(class="row top-space")
+				div(class="col-xs-12 col-sm-6")
+					input(type="submit" value="registrate",class="btn btn-info")
+				div(class="col-xs-12 col-sm-6 text-right")
+					a(href="/logini") Ya tengo una cuenta

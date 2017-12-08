@@ -3,14 +3,14 @@ const Ofert = require('../models/ofert')
 
 function create_ofert (req, res) { // se crea la funcion signUp que recibe un requerimiento y manda una respuesta
 
-  console.log(res.locals.company_id);
+  console.log(res.locals.username);
 
   const data = {
     title: req.body.title,
     description: req.body.description,
     price: req.body.price,
     date_top: req.body.date_top,
-    creator: res.locals.company
+    creator: res.locals.company._id
   } // se guarda todos los datos del body en una constante
 
   const ofert = new Ofert(data) // se crea nuevo usuario

@@ -18,14 +18,13 @@ function signUp (req, res) { // se crea la funcion signUp que recibe un requerim
   typeOfCompany: req.body.typeOfCompany,
   residence: req.body.residence,
   class_company: req.body.class_company,
-  tel_home: req.body.tel_home,
-  creator: res.locals.company_id
+  tel_home: req.body.tel_home
 }
 const company = new Company(data) // se guarda todos los datos almacenados en una constante y se manda a guardar esta constante
 company.save((err) => { // se manda a guardar la compañia en la base de datos
   if (err) return res.status(500).send({ message: `Error al crear Compañia: ${err}` }) // si paso algun error a mandar a guardar
   console.log('company created')
-  onsole.log(company)
+  console.log(company)
   return res.status(200).send({message: 'compañia creada'}) // manda el estatus 200 que fue correcto el guardado del usuario  guarda en la base de datos
 })
 }
@@ -34,16 +33,16 @@ function getCompanys (req, res) { // funcion para mostrar todos los datos del mo
   Company.find({}, (err, companys) => { // el metodo find de mongoose es para recorrer la base de datos y traerse el objeto json completo
     if (err) return res.status(500).send({message: `Error 500 petition denegade: ${err}`}) // si se genera un error en la peticion se toma con un estatus 500 que no se puede terminar la peticion
     if (!companys) return res.status(404).send({message: 'Not exists users'}) // si la variable que tiene el objeto users esta vacio manda un status 404 quiere decir que no encontro usuarios
-    res.status(200).send({companys: companys})
+    res.status(200).render('companys',{companys: companys})
   })
 }
 
 function getCompany (req, res) { // funcion para mostrar todos los usuarios en la base de datos
   let companyId = req.params.companyId
-  Company.findById(companyId, (err, company) => { // el metodo find de mongoose es para recorrer la base de datos y traerse el objeto json completo
+  Company.findById(companyId, (err, companys) => { // el metodo find de mongoose es para recorrer la base de datos y traerse el objeto json completo
     if (err) return res.status(500).send({message: `Error 500 petition denegade: ${err}`}) // si se genera un error en la peticion se toma con un estatus 500 que no se puede terminar la peticion
-    if (!company) return res.status(404).send({message: 'Not exists users'}) // si la variable que tiene el objeto users esta vacio manda un status 404 quiere decir que no encontro usuarios
-    res.status(200).send({company: company})
+    if (!companys) return res.status(404).send({message: 'Not exists users'}) // si la variable que tiene el objeto users esta vacio manda un status 404 quiere decir que no encontro usuarios
+    res.status(200).render('companys/show_company',{companys: companys})
   })
 }
 
@@ -55,9 +54,17 @@ function signIn (req, res) { // funcion para validar el logeado de los usuarios
     req.session.company_id = company._id
     req.session.username = company.username
     req.session.nickname = company.nickname
-    console.log(req.session.company_id);
+    console.log(req.session.username);
     res.status(200).send({message: `Bienvenido ${req.body.username}`, company: company}) // manda estado 200 y envia el mensaje que se a logeado correctamente
 
+  })
+}
+
+function view_update_company (req, res) {
+  Company.findById(req.params.companyId, (err, company) => {
+    if (err) return res.status(500).send({ message: `Error al buscar oferta: ${err}` })
+    if (!company) return res.status(404).send({message: 'No existe ninguna oferta'})
+    res.render('companys/edit_company', {company: company})
   })
 }
 
@@ -97,5 +104,6 @@ module.exports =
   getCompanys, // palabra reservada para llamar a la funcion getUsers
   getCompany,
   updateCompany,
-  deleteCompany
+  deleteCompany,
+  view_update_company
 }

@@ -1,7 +1,7 @@
 const Company = require('../models/company')
 module.exports = function(req, res, next) {
   if (!req.session.company_id) {
-    res.redirect('/login')
+    res.redirect('/logini')
   } else {
     Company.findById(req.session.company_id, function(err, company) {
       if (err) {
