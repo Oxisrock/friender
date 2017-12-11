@@ -5,25 +5,13 @@ const Company = require('../models/company') // se manda a llamar a el modelo co
 function signUp (req, res) { // se crea la funcion signUp que recibe un requerimiento y manda una respuesta
   console.log('POST /Company')
   console.log(req.body)
-  const data = { //se guarda en un array los datos de la compañia  que nos da el requerimiento
-  name: req.body.name,
-  nit: req.body.nit,
-  place_fundation: req.body.place_fundation,
-  email: req.body.email,
-  tel: req.body.tel,
-  username: req.body.username,
-  nickname: req.body.nickname,
-  password: req.body.password,
-  fundation: req.body.fundation,
-  typeOfCompany: req.body.typeOfCompany,
-  residence: req.body.residence,
-  class_company: req.body.class_company,
-  tel_home: req.body.tel_home
-}
+  const data = req.body
 const company = new Company(data) // se guarda todos los datos almacenados en una constante y se manda a guardar esta constante
 company.save((err) => { // se manda a guardar la compañia en la base de datos
   if (err) return res.status(500).send({ message: `Error al crear Compañia: ${err}` }) // si paso algun error a mandar a guardar
   console.log('company created')
+  console.log(req.body.profile_img)
+  console.log(req.body.banner)
   console.log(company)
   return res.status(200).send({message: 'compañia creada'}) // manda el estatus 200 que fue correcto el guardado del usuario  guarda en la base de datos
 })

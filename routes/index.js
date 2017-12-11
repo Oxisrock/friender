@@ -1,6 +1,7 @@
 'use strict'
 
 const express = require ('express')
+const fs = require('fs')
 const api = express.Router()
 const companyCtrl = require('../controllers/company')
 const userCtrl = require('../controllers/user')

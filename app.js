@@ -8,6 +8,7 @@ const cookieSession = require('cookie-session')
 const session_middleware = require('./middlewares/session')
 const config = require('./config')
 const methodOverride = require('method-override')
+const formidable = require('express-formidable')
 
 app.use(methodOverride('_method'))
 
@@ -15,6 +16,7 @@ app.use(cookieSession({
   name: "session",
   keys: ["llave-1","llave-2"]
 }))
+
 
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css')); // redirect CSS bootstrap
 
