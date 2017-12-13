@@ -1,7 +1,7 @@
-extends ./layout.pug
+extends ../layout.pug
 block contenido
   div(class="col-md-4 remove-float center-block big-top-space")
-    form(method="post" action="/logini")
+    form(method="post" action="/users/login")
       div(class="form-group")
         label(for='username') Username
         input( class="form-control" type="text" name="username" placeholder="Nombre de usuario")
@@ -14,4 +14,4 @@ block contenido
         div(class="col-xs-12 col-sm-6")
           input(type="submit" value="iniciar sesion",class="btn btn-info")
         div(class="col-xs-12 col-sm-6 text-right")
-          a(href="/sign") No tengo una cuenta
+          a(href="/users/new_users") No tengo una cuenta

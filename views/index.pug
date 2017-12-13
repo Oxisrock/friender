@@ -1,8 +1,12 @@
 extends ./layout.pug
 block contenido
-  div(class="col-md-10 remove-float center-block text-center big-top-space")
-    a(href="/logini" class="right-space btn btn-info") Iniciar Sesión como empresas
-    a(href="/login" class="right-space btn btn-info") Iniciar Sesión como cliente
-    a(href="/sign" class="right-space btn btn-danger") Registrate como empresas
-    a(href="/signup" class="right-space btn btn-danger") Registrate como clientes
+  div(class="col-md-10 remove-float center-block text-center")
+    h1 Bienvenido #{user.name}
+    h2 su nickname es #{user.nickname}
+    h2 su id es #{user._id}
+    a(href="/companys/login" class="right-space btn btn-info") Iniciar Sesión como empresas
+    a(href="/users/login" class="right-space btn btn-info") Iniciar Sesión como cliente
+    a(href="/companys/new" class="right-space btn btn-danger") Registrate como empresas
+    a(href="/users/new" class="right-space btn btn-danger") Registrate como clientes
     a(href="/ofert/new" class="right-space btn btn-danger") Registrar ofertas
+    a(href="/service/new" class="right-space btn btn-danger") Registrar servicios

@@ -1,0 +1,26 @@
+extends ../layout.pug
+block contenido
+	div(class="col-md-4 remove-float center-block top-space")
+		h1 Crear nuevo servicio
+		form(method="post" action="/services")
+			div(class="form-group")
+				label(for="title") Titulo de servicios
+				input(class="form-control" type="text" name="title")
+			br
+			div(class="form-group")
+				label(for="description") Descripción
+				input(class="form-control" type="text" name="description")
+			br
+			div(class="form-group")
+				label(for="logo") Logo
+				input(class="form-control" type="text" name="Logo")
+			br
+			div(class="form-group")
+				label(for="salary") Salario
+				input(class="form-control" type="number" name="salary")
+			br
+			div(class="row top-space")
+				div(class="col-xs-12 col-sm-6")
+					input(type="submit" value="crear servicio",class="btn btn-info")
+				div(class="col-xs-12 col-sm-6 text-right")
+					a(href="/" class="btn btn-danger") Cancelar

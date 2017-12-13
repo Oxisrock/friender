@@ -7,39 +7,57 @@ const companyCtrl = require('../controllers/company')
 const userCtrl = require('../controllers/user')
 const ofertCtrl = require('../controllers/ofert')
 const finder_oferts = require('../middlewares/find_oferts')
-api.get('/',userCtrl.home)
+const serviceCtrl = require('../controllers/service')
 
-//rutas modelo company
-api.post('/sign', companyCtrl.signUp)
-api.get('/companys', companyCtrl.getCompanys)
-api.get('/company/:companyId', companyCtrl.getCompany)
-api.get('/company/:companyId/edit', companyCtrl.view_update_company)
-api.post('/logini', companyCtrl.signIn)
-api.get('/logini', (req, res) => {
-  res.render('logincompany')
-})
-api.get('/sign', (req, res) => {
-  res.render('registrocompany')
-})
-api.put('/company/:companyId', companyCtrl.updateCompany)
-api.delete('/company/:companyId', companyCtrl.deleteCompany)
 
-//rutas modelo user
-api.post('/signup', userCtrl.signUp) // ruta para el registro de usuarios
-api.get('/users', userCtrl.getUsers)
-api.get('/user/:userId', userCtrl.getUser) // petion get para mostrar un producto especificado por su ID
-api.post('/login', userCtrl.signIn)
-api.get('/login', (req, res) => {
-  res.render('login')
-})
-api.get('/signup', (req, res) => {
-  res.render('registro')
-})
-api.put('/users/:userId', userCtrl.updateUser)
-api.delete('/user/:userId', userCtrl.deleteUser)
+// Home
+api.route('/')
+  .get((req, res) => {
+    res.render('')
+  })
+//Rutas modelo company
+api.route('/companys')
+  .get(companyCtrl.getCompanys)
+  .post(companyCtrl.new_company)
+api.route('/companys/new')
+  .get((req, res) => {
+    res.render('companys/new_company')
+  })
+api.route('/companys/login')
+  .get((req, res) => {
+    res.render('companys/login')
+  })
+  .post(companyCtrl.login)
+api.route('/company/:companyId')
+  .get(companyCtrl.getCompany)
+  .put(companyCtrl.updateCompany)
+  .delete(companyCtrl.deleteCompany)
 
-//ofertas
+///////////////////////////////////////////////////////////////////////
 
+//Rutas modelo user
+api.route('/users')
+  .post(userCtrl.new_user)
+  .get(userCtrl.getUsers)
+
+api.route('/users/new')
+  .get((req, res) => {
+    res.render('users/new_user')
+  })
+
+api.route('/users/login')
+  .get((req, res) => {
+    res.render('/users/login')
+  })
+  .post(userCtrl.login)
+
+api.route('/user/:userId')
+  .get(userCtrl.getUser)
+  .put(userCtrl.updateUser)
+  .delete(userCtrl.deleteUser)
+
+///////////////////////////////////////////////////////////////////////
+// Rutas modelo ofertas
 api.route('/ofert/new')
   .get((req, res) => {
     res.render('oferts/new_ofert')
@@ -59,6 +77,26 @@ api.route('/ofert/:ofertsId')
   .put(ofertCtrl.update_ofert)
   .delete(ofertCtrl.delete_ofert)
 // vistas
+
+
+///////////////////////////////////////////////////////////////////////
+// Rutas modelo servicios
+api.route('/service/new')
+  .get((req, res) => {
+    res.render('services/new_service')
+  })
+
+api.route('/services')
+  .get(serviceCtrl.get_services)
+  .post(serviceCtrl.create_service)
+
+api.route('/services/:serviceId/edit')
+  .get(serviceCtrl.view_update_service)
+
+api.route('/service/:serviceId')
+  .get(serviceCtrl.get_service)
+  .put(serviceCtrl.update_service)
+  .delete(serviceCtrl.deleteService)
 
 
 /*

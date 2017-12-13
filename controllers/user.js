@@ -1,12 +1,8 @@
 'use strict'
 const User = require('../models/user') // se importa modelo User, UserShema
 
-function home (req, res) {
-  console.log('El home');
-  res.render('index')
-}
 
-function signUp (req, res) { // función para registrar usuarios
+function new_user (req, res) { // función para registrar usuarios
   console.log('POST /Users')
   console.log(req.body)
   const data = { // se guarda todos los datos del body en una constante
@@ -31,7 +27,7 @@ function signUp (req, res) { // función para registrar usuarios
     console.log('usuario creado')
     //console.log('Email :' + req.body.email)
     //console.log('Password :' + req.body.password)
-    return res.redirect('/user/'+user._id) // manda el estatus 200 que fue correcto el guardado del usuario  guarda en la base de datos
+    res.status(200).render('users/show_user', {user: user}) // manda el estatus 200 que fue correcto el guardado del usuario  guarda en la base de datos
   })
 }
 
@@ -39,7 +35,7 @@ function getUsers (req, res) { // funcion para mostrar todos los usuarios en la 
   User.find({}, (err, users) => { // el metodo find de mongoose es para recorrer la base de datos y traerse el objeto json completo
     if (err) return res.status(500).send({message: `Error 500 petition denegade: ${err}`}) // si se genera un error en la peticion se toma con un estatus 500 que no se puede terminar la peticion
     if (!users) return res.status(404).send({message: 'Not exists users'}) // si la variable que tiene el objeto users esta vacio manda un status 404 quiere decir que no encontro usuarios
-    res.status(200).send({users: users})
+    res.status(200).render('users/index', {users: users})
   })
 }
 
@@ -48,11 +44,11 @@ function getUser (req, res) { // funcion para mostrar todos los usuarios en la b
   User.findById(userId, (err, user) => { // el metodo find de mongoose es para recorrer la base de datos y traerse el objeto json completo
     if (err) return res.status(500).send({message: `Error 500 petition denegade: ${err}`}) // si se genera un error en la peticion se toma con un estatus 500 que no se puede terminar la peticion
     if (!user) return res.status(404).send({message: 'Not exists users'}) // si la variable que tiene el objeto users esta vacio manda un status 404 quiere decir que no encontro usuarios
-    res.status(200).send({user: user})
+    res.status(200).render('users/show_user', {user: user})
   })
 }
 
-function signIn (req, res) { // funcion para validar el logeado de los usuarios
+function login (req, res) { // funcion para validar el logeado de los usuarios
   User.findOne({username: req.body.username, password: req.body.password}, (err, user) => { // se manda a buscar el correo en la base de datos
     if (err) return res.status(500).send({ message: err }) // si manda error 500 es que a pasado algo en la peticion
     if (!user) return res.status(404).send({ message: `No existe el usuario` })// si manda error 404 es que no existe este usuario
@@ -92,11 +88,10 @@ function deleteUser(req, res) { //funcion que borra registro de usuario
 
 module.exports =
 {
-  signUp,
-  signIn,
+  new_user,
+  login,
   getUsers,
   getUser,
   deleteUser,
-  updateUser,
-  home
+  updateUser
 }

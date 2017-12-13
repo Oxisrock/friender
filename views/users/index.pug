@@ -1,0 +1,26 @@
+extends ../layout.pug
+block contenido
+  .container
+      .row
+      .white.border.tr.large-padding
+        .col-md-11
+          table(class='table')
+
+            caption Usuarios
+            thead
+              tr
+                th Nombre
+                th Cedula
+                th Email
+                th Obciones
+            for user in users
+              tr
+                td #{user.name}
+                td #{user.idcc}
+                td #{user.email}
+                td
+                  a(class="btn btn-info" href='user/'+user.id ) Ver mas
+
+                  a(class="btn btn-success" href='user/'+user.id) Editar
+
+                  a(class="btn btn-danger" href='user/'+user.id) Eliminar

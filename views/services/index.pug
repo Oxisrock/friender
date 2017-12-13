@@ -1,0 +1,24 @@
+extends ../layout.pug
+block contenido
+  .container
+      .row
+      .white.border.tr.large-padding
+        .col-md-11
+          table(class='table')
+
+            caption services
+            thead
+              tr
+                th Id de servicio
+                th Titulo de servicio
+                th opciones
+            for service in services
+              tr
+                td #{service.id}
+                td #{service.title}
+                td
+                  a(class="btn btn-info" href='service/'+service.id ) Ver mas
+
+                  a(class="btn btn-success" href='services/'+service.id+'/edit') Editar
+
+                  a(class="btn btn-danger" href='service/'+service.id) Eliminar

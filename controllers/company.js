@@ -2,7 +2,7 @@
 
 const Company = require('../models/company') // se manda a llamar a el modelo company.js
 
-function signUp (req, res) { // se crea la funcion signUp que recibe un requerimiento y manda una respuesta
+function new_company (req, res) { // se crea la funcion signUp que recibe un requerimiento y manda una respuesta
   console.log('POST /Company')
   console.log(req.body)
   const data = req.body
@@ -34,7 +34,7 @@ function getCompany (req, res) { // funcion para mostrar todos los usuarios en l
   })
 }
 
-function signIn (req, res) { // funcion para validar el logeado de los usuarios
+function login (req, res) { // funcion para validar el logeado de los usuarios
   Company.findOne({username: req.body.username, password: req.body.password}, (err, company) => { // se manda a buscar el correo en la base de datos
     console.log(company)
     if (err) return res.status(500).send({ message: err }) // si manda error 500 es que a pasado algo en la peticion
@@ -87,8 +87,8 @@ function deleteCompany(req, res) { //funcion que borra registro de usuario
 
 module.exports =
 {
-  signUp, // palabra reservada para llamar a la funcion signUp
-  signIn,
+  new_company, // palabra reservada para llamar a la funcion signUp
+  login,
   getCompanys, // palabra reservada para llamar a la funcion getUsers
   getCompany,
   updateCompany,
