@@ -1,11 +1,12 @@
 'use strict'
-const User = require('../models/user') // se importa modelo User, UserShema
+// Imports
+const User = require('../models/user') 
 
-
-function new_user (req, res) { // función para registrar usuarios
+// Crear Usuario
+function new_user (req, res) { 
   console.log('POST /Users')
   console.log(req.body)
-  const data = { // se guarda todos los datos del body en una constante
+  const data = { 
     name: req.body.name,
     last_name: req.body.last_name,
     idcc: req.body.idcc,
@@ -22,34 +23,40 @@ function new_user (req, res) { // función para registrar usuarios
   }
 
   const user = new User(data) // se crea nuevo usuario
-  user.save((err) => { // se guarda el usuario en la base de datos
-    if (err) return res.status(500).send({ message: `Error al registrar usuario: ${err}` }) // si paso algun error a mandar a guardar
+
+  //Guardar usuario en base de datos
+  user.save((err) => { 
+    if (err) return res.status(500).send({ message: `Error al registrar usuario: ${err}` })
     console.log('usuario creado')
-    //console.log('Email :' + req.body.email)
-    //console.log('Password :' + req.body.password)
-    res.status(200).render('users/show_user', {user: user}) // manda el estatus 200 que fue correcto el guardado del usuario  guarda en la base de datos
+    res.status(200).render('users/show_user', {user: user}) // Se envia estatus y la informacion del usuario creado.
   })
 }
 
-function getUsers (req, res) { // funcion para mostrar todos los usuarios en la base de datos
-  User.find({}, (err, users) => { // el metodo find de mongoose es para recorrer la base de datos y traerse el objeto json completo
-    if (err) return res.status(500).send({message: `Error 500 petition denegade: ${err}`}) // si se genera un error en la peticion se toma con un estatus 500 que no se puede terminar la peticion
-    if (!users) return res.status(404).send({message: 'Not exists users'}) // si la variable que tiene el objeto users esta vacio manda un status 404 quiere decir que no encontro usuarios
-    res.status(200).render('users/index', {users: users})
+//obtener todos los usuarios
+function getUsers (req, res) { 
+  //recorrer base de datos metodo find ()
+  User.find({}, (err, users) => { 
+    if (err) return res.status(500).send({message: `Error 500 petition denegade: ${err}`}) // Error en el servidor
+    if (!users) return res.status(404).send({message: 'Not exists users'}) // No existen usuarios
+    res.status(200).render('users/index', {users: users}) //usuarios encontrados
   })
 }
 
-function getUser (req, res) { // funcion para mostrar todos los usuarios en la base de datos
+//obetener usuario por ID
+function getUser (req, res) { 
   let userId = req.params.userId
-  User.findById(userId, (err, user) => { // el metodo find de mongoose es para recorrer la base de datos y traerse el objeto json completo
-    if (err) return res.status(500).send({message: `Error 500 petition denegade: ${err}`}) // si se genera un error en la peticion se toma con un estatus 500 que no se puede terminar la peticion
-    if (!user) return res.status(404).send({message: 'Not exists users'}) // si la variable que tiene el objeto users esta vacio manda un status 404 quiere decir que no encontro usuarios
-    res.status(200).render('users/show_user', {user: user})
+  //recorrer base de datos hasta encontrar el userId
+  User.findById(userId, (err, user) => { 
+    if (err) return res.status(500).send({message: `Error 500 petition denegade: ${err}`}) // Error en el servidor
+    if (!user) return res.status(404).send({message: 'Not exists users'}) //No existe el usuario
+    res.status(200).send({message: `usuario encontrado`, {user: user}) //usuario
   })
 }
 
-function login (req, res) { // funcion para validar el logeado de los usuarios
-  User.findOne({username: req.body.username, password: req.body.password}, (err, user) => { // se manda a buscar el correo en la base de datos
+//logueo de usuario
+function login (req, res) { 
+  //Encontrar usuario por nombre y password
+  User.findOne({username: req.body.username, password: req.body.password}, (err, user) => { 
     if (err) return res.status(500).send({ message: err }) // si manda error 500 es que a pasado algo en la peticion
     if (!user) return res.status(404).send({ message: `No existe el usuario` })// si manda error 404 es que no existe este usuario
     req.session.user_id = user._id

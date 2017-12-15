@@ -21,7 +21,7 @@ function getCompanys (req, res) { // funcion para mostrar todos los datos del mo
   Company.find({}, (err, companys) => { // el metodo find de mongoose es para recorrer la base de datos y traerse el objeto json completo
     if (err) return res.status(500).send({message: `Error 500 petition denegade: ${err}`}) // si se genera un error en la peticion se toma con un estatus 500 que no se puede terminar la peticion
     if (!companys) return res.status(404).send({message: 'Not exists users'}) // si la variable que tiene el objeto users esta vacio manda un status 404 quiere decir que no encontro usuarios
-    res.status(200).render('companys',{companys: companys})
+    res.status(200).send('companys',{companys: companys})
   })
 }
 
