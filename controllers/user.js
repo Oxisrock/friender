@@ -26,9 +26,9 @@ function new_user (req, res) {
 
   //Guardar usuario en base de datos
   user.save((err) => { 
-    if (err) return res.status(500).send({ message: `Error al registrar usuario: ${err}` })
-    console.log('usuario creado')
-    res.status(200).render('users/show_user', {user: user}) // Se envia estatus y la informacion del usuario creado.
+    if (err) return res.status(500).send({ message: `Error interno del servidor: ${err}` })
+    console.log(user)
+    res.status(200).json({user: user}) // Se envia estatus y la informacion del usuario creado.
   })
 }
 
@@ -36,9 +36,9 @@ function new_user (req, res) {
 function getUsers (req, res) { 
   //recorrer base de datos metodo find ()
   User.find({}, (err, users) => { 
-    if (err) return res.status(500).send({message: `Error 500 petition denegade: ${err}`}) // Error en el servidor
-    if (!users) return res.status(404).send({message: 'Not exists users'}) // No existen usuarios
-    res.status(200).render('users/index', {users: users}) //usuarios encontrados
+    if (err) return res.status(500).send({message: `Internal Server Error: ${err}`}) // Error en el servidor
+    if (!users) return res.status(404).send({message: 'No encontrado'}) // Usuario no encontrados
+    res.status(200).json({users: users}) //usuarios encontrados
   })
 }
 
@@ -47,9 +47,10 @@ function getUser (req, res) {
   let userId = req.params.userId
   //recorrer base de datos hasta encontrar el userId
   User.findById(userId, (err, user) => { 
-    if (err) return res.status(500).send({message: `Error 500 petition denegade: ${err}`}) // Error en el servidor
-    if (!user) return res.status(404).send({message: 'Not exists users'}) //No existe el usuario
-    res.status(200).send({message: `usuario encontrado`, {user: user}) //usuario
+    if (err) return res.status(500).send({message: `Error interno del servidor: ${err}`}) // Error en el servidor
+    if (!user) return res.status(404).send({message: 'Usuario no encontrado'}) //No existe el usuario
+
+    res.status(200).json({user: user}) //usuario
   })
 }
 
@@ -58,12 +59,12 @@ function login (req, res) {
   //Encontrar usuario por nombre y password
   User.findOne({username: req.body.username, password: req.body.password}, (err, user) => { 
     if (err) return res.status(500).send({ message: err }) // si manda error 500 es que a pasado algo en la peticion
-    if (!user) return res.status(404).send({ message: `No existe el usuario` })// si manda error 404 es que no existe este usuario
+    if (!user) return res.status(404).send({ message: `Usurio no encontrado` })// si manda error 404 es que no existe este usuario
     req.session.user_id = user._id
     req.session.username = user.username
     req.session.nickname = user.nickname
     console.log(req.session.user);
-    res.status(200).send({user: user}) // manda estado 200 y envia el mensaje que se a logeado correctamente
+    res.status(200).json({user: user}) // manda estado 200 y envia el mensaje que se a logeado correctamente
 
   })
 }
@@ -75,7 +76,7 @@ function updateUser(req, res) { // funcion que actualiza la informacion del usua
   User.findByIdAndUpdate(userId, update, (err, userUpdate) => {
     if (err) return res.status(500).send({message: "Error al acceder al servidor"})
 
-    res.status(200).send({message: "Se a actualizado la información del usuario"})
+    res.status(200).json({userUpdate})
   }
 )
 }
