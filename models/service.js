@@ -2,6 +2,8 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
+
+//coleccion service
 const serviceSchema = new Schema({
   title:{type:String, required: true},
   description:{type:String, required: true},

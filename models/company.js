@@ -9,6 +9,8 @@ const Schema = mongoose.Schema
   message: 'Las Contraseñas no son iguales'
 }
 */
+
+//coleccion company
 const CompanySchema = new Schema({
   name: String, // nombre o razon social de la compañia
   nit: {type: String, unique: true},

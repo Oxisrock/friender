@@ -94,6 +94,7 @@ function deleteUser(req, res) { //funcion que borra registro de usuario
   })
 }
 
+//se exportan funciones
 module.exports =
 {
   new_user,

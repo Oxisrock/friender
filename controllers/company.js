@@ -45,13 +45,14 @@ function login (req, res) {
   //recorrer bd username - password
   Company.findOne({username: req.body.username, password: req.body.password}, (err, company) => { 
     console.log(company)
-    if (err) return res.status(500).send({ message: err }) // si manda error 500 es que a pasado algo en la peticion
-    if (!company) return res.status(404).send({ message: `Compañia no existe` })// si manda error 404 es que no existe este usuario
+    if (err) return res.status(500).send({ message: err }) 
+    if (!company) return res.status(404).send({ message: `Compañia no existe` })
     req.session.company_id = company._id
     req.session.username = company.username
     req.session.nickname = company.nickname
     console.log(req.session.username);
-    res.status(200).json({company: company}) // manda estado 200 y envia el mensaje que se a logeado correctamente
+    //envio json
+    res.status(200).json({company: company}) 
 
   })
 }

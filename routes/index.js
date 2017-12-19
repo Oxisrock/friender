@@ -33,11 +33,6 @@ api.route('/company/:companyId')
   .put(companyCtrl.updateCompany)
   .delete(companyCtrl.deleteCompany)
 
-api.route('/company/s')
-  .get ((req, res) => {
-    res.render('companys/edit_company')
-  }) 
-
 ///////////////////////////////////////////////////////////////////////
 
 //Rutas modelo user
