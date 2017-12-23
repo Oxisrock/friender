@@ -5,7 +5,14 @@ const Service = require('../models/service')
 
 // crear nuevo servicio
 function create_service (req, res) { 
-  const data = req.body // 
+  const data = {
+    title: req.body.title,
+    description: req.body.description,
+    logo: req.body.logo,
+    salary: req.body.salary,
+    fecha: req.body.fecha,
+    creator: res.locals.user._id
+  } // 
 
   const service = new Service(data) 
   //se guarda en bd

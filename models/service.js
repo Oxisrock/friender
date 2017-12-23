@@ -10,6 +10,7 @@ const serviceSchema = new Schema({
   logo:{type:String, default: null},
   salary:{type:Number, required: true},
   fecha:{type:Date, default: Date.now()}
+  creator:{type:Schema.Types.ObjectId, ref: "User"}
 
 })
 
