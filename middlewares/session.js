@@ -1,8 +1,11 @@
 const Company = require('../models/company')
 const User = require('../models/user')
-module.exports = function(req, res, next) {
-  if (req.session.company_id) || (req.session.user_id ){
-  
+ module.exports = function(req, res, next) {
+next();
+}
+
+/*  if (req.session.company_id) {
+    next();
     // res.redirect('/companys/login')
   } 
   if (req.session.company_id) {    
@@ -32,3 +35,4 @@ module.exports = function(req, res, next) {
   }
 
 };
+*/

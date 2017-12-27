@@ -6,15 +6,15 @@ const api = express.Router()
 const companyCtrl = require('../controllers/company')
 const userCtrl = require('../controllers/user')
 const ofertCtrl = require('../controllers/ofert')
-const finder_oferts = require('../middlewares/find_oferts')
+//const finder_oferts = require('../middlewares/find_oferts')
 const serviceCtrl = require('../controllers/service')
 
 
 // Home
-api.route('/')
+/*api.route('/')
   .get((req, res) => {
     res.render('')
-  })
+  }) */
 //Rutas modelo company
 api.route('/companys')
   .get(companyCtrl.getCompanys)
@@ -70,7 +70,7 @@ api.route('/oferts')
 api.route('/ofert/:ofertsId/edit')
   .get(ofertCtrl.view_update_ofert)
 
-api.all('/ofert/:ofertsId*', finder_oferts)
+//api.all('/ofert/:ofertsId*', finder_oferts)
 
 api.route('/ofert/:ofertsId')
   .get(ofertCtrl.get_ofert)

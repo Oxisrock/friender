@@ -25,12 +25,19 @@ function new_user (req, res) {
   const user = new User(data) // se crea nuevo usuario
 
   //Guardar usuario en base de datos
-  user.save((err) => { 
-    if (err) return res.status(500).send({ message: `Error interno del servidor: ${err}` })
-    console.log(user)
-    res.status(200).json({user: user}) // Se envia estatus y la informacion del usuario creado.
-  })
-}
+  user.save()
+    .then(() => {
+       console.log(user)
+       res.status(200).json({user: user})
+    }) 
+    .catch((err)=> {
+      res.status(500).send({ message: `Error interno del servidor: ${err}` })
+   
+    })
+    
+    // Se envia estatus y la informacion del usuario creado.
+  }
+
 
 //obtener todos los usuarios
 function getUsers (req, res) { 

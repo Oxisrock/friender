@@ -1,22 +1,17 @@
 'use strict'
 const express = require('express')
+const session = require('express-session')
 const bodyParser = require('body-parser')
 const app = express()
 const pug = require('pug')
 const api = require('./routes/index')
-const cookieSession = require('cookie-session')
-const session_middleware = require('./middlewares/session')
 const config = require('./config')
 const methodOverride = require('method-override')
 const formidable = require('express-formidable')
+const MongoStore =require('connect-mongo')(session)
+
 
 app.use(methodOverride('_method'))
-
-app.use(cookieSession({
-  name: "session",
-  keys: ["llave-1","llave-2"]
-}))
-
 
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css')); // redirect CSS bootstrap
 
@@ -26,7 +21,20 @@ app.use(bodyParser.urlencoded({extended: false})) // llamada del middleware body
 
 app.use(bodyParser.json()) // para poder utilizar y leer objetos tipo json
 
-app.use('/', session_middleware)
+app.use(session({
+	secret: 'TOP SECRECT',
+	resave: true,
+	saveUnitialized : true,
+	store: new MongoStore ({
+		url: config.db,
+		autoReconnect: true
+	}) 
+}))
+
+app.get('/', (req, res) => {
+	req.session.cuenta = req.session.cuenta ? req.session.cuenta + 1 : 1;
+	res.send(`el nuemero de veces que visitaste la pagina fue ${req.session.cuenta}`)
+})
 
 app.use('/', api)
 

@@ -9,7 +9,7 @@ const serviceSchema = new Schema({
   description:{type:String, required: true},
   logo:{type:String, default: null},
   salary:{type:Number, required: true},
-  fecha:{type:Date, default: Date.now()}
+  fecha:{type:Date, default: Date.now()},
   creator:{type:Schema.Types.ObjectId, ref: "User"}
 
 })

@@ -8,7 +8,7 @@ const OfertSchema = new Schema({
   description:{type:String, required: true},
   price:{type:String, required: true},
   date_top:{type:Date, required: true},
-  creator:{type:Schema.Types.ObjectId, ref: "Company"}
+  creator:{type:Schema.Types.ObjectId, ref: "Company"},
 
 })
 

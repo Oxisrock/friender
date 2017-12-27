@@ -1,6 +1,7 @@
 'use strict'
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
+const bcrypt = require('bcrypt-nodejs')
 
 // const email_match = [/^\w+([\.-]?\w+)*@\w+([\.-]?\w)*(\.\w{2,3})+$/, 'Email Not validate']
 /* const password_validation = {
@@ -32,6 +33,38 @@ const UserSchema = new Schema({
   permision_level: {type: Number, default: 1}, // Nivel autorización de usuario
   singUpDate: {type: Date, default: Date.now()}, // Fech registro
   lastLogin: Date
+}, {
+  timestamps: true
 })
+
+UserSchema.pre('save', function(next) {
+  const user = this;
+  if (!user.isModified('password')){
+    return next();
+  }
+
+  bcrypt.genSalt(10, (err, salt) => {
+    if (err) {
+      next(err)
+    }
+    bcrypt.hash(user.password, salt, null, (err, hash)=> {
+      if (err) {
+        next (err)
+      }
+    user.password = hash;
+    next ();
+    })
+  })
+})
+
+UserSchema.methods.comparePassword =  function(password, cb) {
+  bcrypt.compare(password, this.password, (err, sonIguales) => {
+    if (err) {
+      cb (err)
+    }
+    cb(null, sonIguales)
+  })
+}
+
 
 module.exports = mongoose.model('User', UserSchema)// se exporta coleccion User
