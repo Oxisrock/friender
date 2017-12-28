@@ -1,7 +1,70 @@
 'use strict'
 // Imports
 const User = require('../models/user') 
+const passport = require('passport')
 
+exports.Signup = (req, res, next) => {
+  const data = { 
+    name: req.body.name,
+    last_name: req.body.last_name,
+    idcc: req.body.idcc,
+    place_birth: req.body.place_birth,
+    email: req.body.email,
+    tel: req.body.tel,
+    username: req.body.username,
+    nickname: req.body.nickname,
+    password: req.body.password,
+    birthdate: req.body.birthdate,
+    sex: req.body.sex,
+    place_residence: req.body.place_residence,
+    tel_home: req.body.tel_home
+  }
+  const user = new User(data)
+
+  User.findOne({email: req.body.email}, (err, userExist) =>{
+    if (userExist) {
+      return res.status(400).send('El email ya esta registrado')
+    }
+    user.save((err) => {
+      if (err) {
+        next(err)
+      }
+        console.log(user)
+        req.logIn(user, (err) => {
+        if (err) {
+        next(err)
+      }
+        res.send('usuario creado exitosamente')
+    })
+    }) 
+  })
+}
+
+exports.Login = (req, res, next) => {
+  passport.authenticate('local', (err, user, info) => {
+    if (err) {
+      next(err)
+    }
+    if (!user) {
+      console.log(user)
+      return res.status(400).end()
+      //return res.status(400).send('Username o contraseña no validos')
+    }
+    req.logIn(user, (err) =>{
+      if (err) {
+        next(err)
+      }
+      res.send('login Exitoso')
+    })
+  })(req, res, next);
+}
+
+exports.logout = (req, res) => {
+  req.logout()
+  res.send('logout Exitoso')
+}
+
+/*
 // Crear Usuario
 function new_user (req, res) { 
   console.log('POST /Users')
@@ -111,3 +174,4 @@ module.exports =
   deleteUser,
   updateUser
 }
+*/

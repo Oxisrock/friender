@@ -23,7 +23,7 @@ const UserSchema = new Schema({
   tel: {type: Number, unique: true, required: 'Number Celphone is obligatory'}, // telefono, campo requerido
   username: {type: 'String', lowercase: true, maxlength: [50, 'Your username is extensive'], minlength: [4, 'Your username is short']}, // nombre de logeo
   nickname: {type: 'String', lowercase: true, maxlength: [20, 'Your nickname is extensive'], minlength: [4, 'Your nickname is short']}, // nombre de perfil
-  password: {type: 'String', select: false, minlength: [7, 'Password must be greater than 7 characters']}, // contraseña del usuario, minimo 8 caracteres
+  password: {type: 'String', minlength: [7, 'Password must be greater than 7 characters']}, // contraseña del usuario, minimo 8 caracteres
   birthdate: { type: Date, required: 'birthdate is obligatory' }, // Fecha de nacimiento, campo requerido
   sex: { type: String, enum: ['male', 'female'], required: 'Sexo es obligatorio'}, // tipo de sexo
   place_residence: String, // lugar de residencia
@@ -58,9 +58,10 @@ UserSchema.pre('save', function(next) {
 })
 
 UserSchema.methods.comparePassword =  function(password, cb) {
-  bcrypt.compare(password, this.password, (err, sonIguales) => {
+
+  bcrypt.compare(password, this.password , (err, sonIguales) => {
     if (err) {
-      cb (err)
+      return cb(err)
     }
     cb(null, sonIguales)
   })

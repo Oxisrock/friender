@@ -8,7 +8,7 @@ const userCtrl = require('../controllers/user')
 const ofertCtrl = require('../controllers/ofert')
 //const finder_oferts = require('../middlewares/find_oferts')
 const serviceCtrl = require('../controllers/service')
-
+const passportConfig = require('../passport/passport')
 
 // Home
 /*api.route('/')
@@ -35,6 +35,27 @@ api.route('/company/:companyId')
 
 ///////////////////////////////////////////////////////////////////////
 
+api.route('/users')
+  .post(userCtrl.Signup)
+
+api.route('/users/login')
+  .get((req, res) => {
+    res.render('users/login')
+  })
+  .post(userCtrl.Login)
+api.route('/users/logout')
+  .get(passportConfig.estaAutenticado, userCtrl.logout)
+
+api.route('/userInfo')
+  .get(passportConfig.estaAutenticado, (req, res) => {
+    res.json(req.user)
+  })
+api.route('/users/new')
+  .get((req, res) => {
+    res.render('users/new_user')
+  })
+
+/*
 //Rutas modelo user
 api.route('/users')
   .post(userCtrl.new_user)
@@ -55,7 +76,7 @@ api.route('/user/:userId')
   .get(userCtrl.getUser)
   .put(userCtrl.updateUser)
   .delete(userCtrl.deleteUser)
-
+*/
 ///////////////////////////////////////////////////////////////////////
 // Rutas modelo ofertas
 api.route('/ofert/new')

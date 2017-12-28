@@ -9,6 +9,7 @@ const config = require('./config')
 const methodOverride = require('method-override')
 const formidable = require('express-formidable')
 const MongoStore =require('connect-mongo')(session)
+const passport = require('passport')
 
 
 app.use(methodOverride('_method'))
@@ -17,7 +18,7 @@ app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 
 app.use(express.static('public'));
 
-app.use(bodyParser.urlencoded({extended: false})) // llamada del middleware bodyParser que busca las rutas y las interpreta
+app.use(bodyParser.urlencoded({extended: true})) // llamada del middleware bodyParser que busca las rutas y las interpreta
 
 app.use(bodyParser.json()) // para poder utilizar y leer objetos tipo json
 
@@ -31,10 +32,9 @@ app.use(session({
 	}) 
 }))
 
-app.get('/', (req, res) => {
-	req.session.cuenta = req.session.cuenta ? req.session.cuenta + 1 : 1;
-	res.send(`el nuemero de veces que visitaste la pagina fue ${req.session.cuenta}`)
-})
+app.use(passport.initialize())
+app.use(passport.session())
+
 
 app.use('/', api)
 
