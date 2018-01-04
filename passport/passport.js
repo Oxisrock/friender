@@ -21,7 +21,6 @@ passport.use(new LocalStrategy (
 			if (!user) {
 				return done(null, false, {message: `El username ${user} no esta registrado`})
 			} else {
-				console.log(user)
 				user.comparePassword(password, (err, sonIguales) => {
 					if (sonIguales) {
 						return done(null, user)

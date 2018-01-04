@@ -46,9 +46,7 @@ exports.Login = (req, res, next) => {
       next(err)
     }
     if (!user) {
-      console.log(user)
-      return res.status(400).end()
-      //return res.status(400).send('Username o contraseña no validos')
+      return res.status(400).send('Username o contraseña no validos')
     }
     req.logIn(user, (err) =>{
       if (err) {
@@ -63,6 +61,43 @@ exports.logout = (req, res) => {
   req.logout()
   res.send('logout Exitoso')
 }
+
+
+exports.deleteUser = (req, res) => { //funcion que borra registro de usuario
+  let userId = req.params.userId
+
+  User.findById(userId, (err, user) => {
+    if (err) return res.status(500).send({message: 'Error al acceder al servidor'})
+    
+    if (!user) return res.status(404).send({message: 'El usuario no existe'})
+    user.remove(err => {
+      if (err) return res.status(500).send({message: 'Error al acceder al servidor'})
+      res.status(200).send({message: `el usuario a sido borrado`})
+    })
+  })
+}
+
+exports.updateUser = (req, res) => { // funcion que actualiza la informacion del usuario
+
+  let userId = req.params.userId
+  let update = req.body
+  User.findByIdAndUpdate(userId, update, (err, userUpdate) => {
+    if (err) return res.status(500).send({message: "Error al acceder al servidor"})
+
+    res.status(200).json({userUpdate})
+  }
+)}
+
+exports.getUsers = (req, res) => { 
+  //recorrer base de datos metodo find ()
+  User.find({}, (err, users) => { 
+    if (err) return res.status(500).send({message: `Internal Server Error: ${err}`}) // Error en el servidor
+    if (!users) return res.status(404).send({message: 'No encontrado'}) // Usuario no encontrados
+    res.status(200).render('users/', {users: users})
+     //usuarios encontrados
+  })
+}
+
 
 /*
 // Crear Usuario

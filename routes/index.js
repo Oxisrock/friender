@@ -11,10 +11,10 @@ const serviceCtrl = require('../controllers/service')
 const passportConfig = require('../passport/passport')
 
 // Home
-/*api.route('/')
+api.route('/')
   .get((req, res) => {
     res.render('')
-  }) */
+  })
 //Rutas modelo company
 api.route('/companys')
   .get(companyCtrl.getCompanys)
@@ -35,7 +35,8 @@ api.route('/company/:companyId')
 
 ///////////////////////////////////////////////////////////////////////
 
-api.route('/users')
+api.route('/users') 
+  .get(userCtrl.getUsers)
   .post(userCtrl.Signup)
 
 api.route('/users/login')
@@ -54,6 +55,10 @@ api.route('/users/new')
   .get((req, res) => {
     res.render('users/new_user')
   })
+
+api.route('/user/:userId')
+  .put(userCtrl.updateUser)
+  .delete(userCtrl.deleteUser)
 
 /*
 //Rutas modelo user
