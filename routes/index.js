@@ -59,7 +59,7 @@ api.route('/users/new')
 api.route('/user/:userId')
   .put(userCtrl.updateUser)
   .delete(userCtrl.deleteUser)
-
+  .get(userCtrl.getUser)
 /*
 //Rutas modelo user
 api.route('/users')

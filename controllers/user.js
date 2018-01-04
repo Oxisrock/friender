@@ -29,7 +29,6 @@ exports.Signup = (req, res, next) => {
       if (err) {
         next(err)
       }
-        console.log(user)
         req.logIn(user, (err) => {
         if (err) {
         next(err)
@@ -97,6 +96,17 @@ exports.getUsers = (req, res) => {
      //usuarios encontrados
   })
 }
+
+exports.getUser = (req, res) => { 
+  let userId = req.params.userId
+  //recorrer base de datos hasta encontrar el userId
+  User.findById(userId, (err, user) => { 
+    if (err) return res.status(500).send({message: `Error interno del servidor: ${err}`}) // Error en el servidor
+    if (!user) return res.status(404).send({message: 'Usuario no encontrado'}) //No existe el usuario
+
+    res.status(200).json({user: user}) //usuario
+  }
+)}
 
 
 /*
